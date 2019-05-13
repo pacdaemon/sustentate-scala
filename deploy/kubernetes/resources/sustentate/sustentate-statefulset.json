@@ -1,0 +1,85 @@
+{
+  "apiVersion": "apps/v1beta2",
+  "kind": "StatefulSet",
+  "metadata": {
+    "name": "sustentate"
+  },
+  "spec": {
+    "serviceName": "sustentate",
+    "replicas": 3,
+    "selector": {
+        "matchLabels": {
+          "name": "sustentate"
+        }
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "name": "sustentate"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "sustentate",
+            "image": "registry.ng.bluemix.net/sustentate/pacdaemon:latest",
+            "imagePullPolicy": "IfNotPresent",
+            "ports": [
+              {
+                "containerPort": 2551,
+                "name": "akka-remote"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "384Mi"
+              },
+              "requests": {
+                "cpu": "250m",
+                "memory": "384Mi"
+              }
+            },
+            "env": [
+              {
+                "name": "AKKA_ACTOR_SYSTEM_NAME",
+                "value": "sustentate"
+              },
+              {
+                "name": "AKKA_REMOTING_BIND_PORT",
+                "value": "2551"
+              },
+              {
+                "name": "AKKA_REMOTING_BIND_HOST",
+                "value": "$HOSTNAME.sustentate.default.svc.cluster.local"
+              },
+              {
+                "name": "AKKA_SEED_NODES",
+                "value": "sustentate-0.sustentate.default.svc.cluster.local:2551,sustentate-1.sustentate.default.svc.cluster.local:2551,sustentate-2.sustentate.default.svc.cluster.local:2551"
+              },
+              {
+                "name": "HTTP_HOST",
+                "value": "0.0.0.0"
+              },
+              {
+                "name": "HTTP_PORT",
+                "value": "8080"
+              },
+              {
+                "name": "CLUSTER_MEMBERSHIP_ASK_TIMEOUT",
+                "value": "5000"
+              }
+            ],
+            "readinessProbe": {
+              "tcpSocket": {
+                "port": 2551
+              },
+              "initialDelaySeconds": 30,
+              "timeoutSeconds": 30
+            }
+          }
+        ]
+      }
+    }
+  }
+}
