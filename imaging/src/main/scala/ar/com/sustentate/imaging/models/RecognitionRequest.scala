@@ -1,6 +1,3 @@
 package ar.com.sustentate.imaging.models
 
-//TODO build a request
-class RecognitionRequest {
-
-}
+case class RecognitionRequest(userId: String, image: String)

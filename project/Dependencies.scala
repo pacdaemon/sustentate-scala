@@ -14,8 +14,8 @@ object Libraries {
   val akkaClusterSharding =  "com.typesafe.akka" %% "akka-cluster-sharding" % akkaVersion
   val akkaHttp = "com.typesafe.akka" %% "akka-http" % akkaHttpVersion
   val akkaHttpPlayJson = "de.heikoseeberger" %% "akka-http-play-json" % "1.19.0-M2"
-  // TODO: Evaluate switching to spray
   val akkaHttpSprayJson = "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion
+  val akkaPersistenceCouchBase = "com.lightbend.akka" %% "akka-persistence-couchbase" % "1.0"
   val akkaStream = "com.typesafe.akka" %% "akka-stream" % akkaVersion
   val playJson = "com.typesafe.play" %% "play-json" % "2.6.5"
 
@@ -43,7 +43,8 @@ object Dependencies {
     akkaCluster,
     akkaClusterSharding,
     akkaHttp,
-    akkaHttpPlayJson,
+    akkaHttpSprayJson,
+    akkaPersistenceCouchBase,
     akkaStream,
     akkaHttpTestKit,
     akkaStreamTestkit,

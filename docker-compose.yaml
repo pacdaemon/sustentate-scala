@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+  couchbase:
+    build:
+      context: couchbase
+      dockerfile: Dockerfile
+    ports:
+      - "8091-8094:8091-8094"
+      - "11210:11210"
