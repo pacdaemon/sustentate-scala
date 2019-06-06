@@ -16,8 +16,10 @@ trait ImagingRoutes {
   lazy val imagingRoutes: Route =
     pathPrefix("recognize") {
       put {
+        // TODO: Update this to use the [[RecognitionRequest]]
         fileUpload("image") {
           case (metaData, byteSource) => {
+            println(metaData)
             complete("Hello World")
           }
         }
